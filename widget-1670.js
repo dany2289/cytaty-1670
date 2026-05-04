@@ -1,21 +1,21 @@
 // ╔══════════════════════════════════════════════════════════════╗
 // ║   WIDGET "1670" — CYTAT DNIA                                 ║
-// ║   Wersja: 2.0 (z auto-update)                                ║
+// ║   Wersja: 2.0                                                ║
+// ║   Repo: github.com/dany2289/cytaty-1670                      ║
 // ║   Platforma: Scriptable (iOS)                                ║
 // ╚══════════════════════════════════════════════════════════════╝
 //
 // Widget automatycznie pobiera najnowszą bazę cytatów z internetu.
 // Wystarczy raz zainstalować — aktualizacje przychodzą same.
-//
-// ⚠️  PRZED INSTALACJĄ: wpisz swój URL do bazy cytatów w stałej
-//     CYTATY_URL poniżej. Instrukcja na końcu pliku.
 
 // ═══════════════════════════════════════════════════════════════
 // KONFIGURACJA
 // ═══════════════════════════════════════════════════════════════
 
-// 👇 TUTAJ WKLEJ LINK DO SWOJEGO GISTA (RAW URL bez hash) 👇
-const CYTATY_URL = "https://gist.githubusercontent.com/TWOJ_USER/TWOJ_GIST_ID/raw/cytaty-1670.json";
+const WERSJA = "2.0";
+
+// URL do bazy cytatów (raw plik z GitHub repo)
+const CYTATY_URL = "https://raw.githubusercontent.com/dany2289/cytaty-1670/main/cytaty-1670.json";
 
 // Co ile godzin sprawdzać aktualizacje (domyślnie 6h)
 const INTERWAL_AKTUALIZACJI_H = 6;
@@ -243,7 +243,7 @@ function budujDuzy(widget, cytat) {
 
   widget.addSpacer(4);
 
-  const podtytul = widget.addText("z serialu „1670"");
+  const podtytul = widget.addText("z serialu „1670”");
   podtytul.font = new Font("Georgia-Italic", 10);
   podtytul.textColor = KOLORY.tekstPrzyt;
   podtytul.centerAlignText();
@@ -290,8 +290,14 @@ function budujDuzy(widget, cytat) {
 // URUCHOMIENIE
 // ═══════════════════════════════════════════════════════════════
 
+console.log(`Widget 1670 v${WERSJA} — startuje...`);
+
 const cytaty = await pobierzCytaty();
+console.log(`Załadowano ${cytaty.length} cytatów`);
+
 const cytat = getCytatDnia(cytaty);
+console.log(`Cytat dnia: ${cytat.character} (S${cytat.season}E${cytat.episode})`);
+
 const widget = utworzWidget(cytat);
 
 if (config.runsInWidget) {
